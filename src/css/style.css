@@ -63,6 +63,7 @@ body {
     border-radius: 8px 8px 0 0;
     background-color: var(--azul-medio);
     background: linear-gradient(90deg, #0162c8, #55e7fc);
+    margin-top: 0.5em;
 }
 
 #tablero {
@@ -95,6 +96,23 @@ body {
     position: absolute;
     animation: animaFicha 5s linear 1 forwards;
     /* z-index: 29; */
+}
+
+.botones-inicio {
+    border: none;
+    border-radius: 8px;
+    width: 30vw;
+    height: 10vw;
+    top: 50%;
+    left: 50%;
+    font-size: var(--letra-grande);
+    font-weight: bold;
+    color: var(--blanco-azulado);
+    transform: translate(-50%, -50%);
+    background: linear-gradient(90deg, rgb(148, 4, 4), rgb(255, 23, 5));
+    position: absolute;
+    z-index: 999;
+    visibility: visible;
 }
 
 @keyframes animaFicha {

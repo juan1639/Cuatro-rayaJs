@@ -1,4 +1,9 @@
 import { Settings } from './settings.js';
+import {
+    touchStart,
+    touchEnd,
+    click
+} from './controles.js';
 
 let settings;
 
@@ -33,3 +38,5 @@ window.onload = () => {
         }
     }
 };
+
+export { settings };

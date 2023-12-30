@@ -15,6 +15,7 @@ export class Settings {
 
         this.doms = {
             tablero: document.getElementById('tablero'),
+            botonesInicio: document.getElementsByClassName('botones-inicio')
         }
     }
 }
