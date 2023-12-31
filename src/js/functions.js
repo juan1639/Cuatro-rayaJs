@@ -49,25 +49,34 @@ function inicia_tirarFicha(columna) {
     }
 
     // ----------------------------------------------------------------
-    // settings.turno = false;
+    settings.turno = false;
     console.log('CPU Pensando...');
+    poner_textos('Turno CPU, pensando...', 'var(--gradi-verde2)');
 
     setTimeout(() => {
         console.log('tirada CPU');
+        juega_CPU();
     }, settings.constantes.tiempoRespuestaCPU);
 
+    // ----------------------------------------------------------------
     const filaLibre = check_colision(columna);
-    settings.arrayTablero[filaLibre][columna] = 1; // 1 = ficha Jugador
+    settings.arrayTablero[filaLibre][columna] = 1; // *** 1 = ficha Jugador ***
 
     settings.resultado.ganaJugador = check_4raya(1);
     console.log('ganaJugador:', settings.resultado.ganaJugador);
 
-    console.log('ficha tirada...');
+    creaFicha_yAnimaLanzamiento('ficha', filaLibre, columna);
+}
+
+// ==========================================================================
+function creaFicha_yAnimaLanzamiento(id, filaLibre, columna) {
+
+    console.log(id + 'tirada...');
     const coorX = columna * settings.constantes.TILE_XX;
     const coorY = filaLibre * settings.constantes.TILE_YY;
 
     const ficha = document.createElement('div');
-    ficha.setAttribute('class', 'ficha');
+    ficha.setAttribute('class', id);
 
     const velAnima = [0.5, 0.3, 0.6, 1.0, 1.3, 1.6];
 
@@ -97,8 +106,10 @@ function check_4raya(id) {
     for (let i = 0; i < settings.constantes.FILAS; i ++) {
         for (let ii = 0; ii < settings.constantes.COLUMNAS; ii ++) {
 
-            if (check_horizontales(id, i, ii)) return true;
-            if (check_verticales(id, i, ii)) return true;
+            if (check_horizontales(id, i, ii, 0)) return true;
+            if (check_verticales(id, i, ii, 0)) return true;
+            if (check_diagonalesDerecha(id, i, ii, 0)) return true;
+            if (check_diagonalesIzquierda(id, i, ii, 0)) return true;
         }
     }
 
@@ -106,9 +117,7 @@ function check_4raya(id) {
 }
 
 // ==========================================================================
-function check_horizontales(id, i, ii) {
-
-    let contador = 0;
+function check_horizontales(id, i, ii, contador) {
 
     for (let offset = 0; offset < 4; offset ++) {
 
@@ -124,9 +133,7 @@ function check_horizontales(id, i, ii) {
 }
 
 // ==========================================================================
-function check_verticales(id, i, ii) {
-
-    let contador = 0;
+function check_verticales(id, i, ii, contador) {
 
     for (let offset = 0; offset < 4; offset ++) {
 
@@ -142,6 +149,73 @@ function check_verticales(id, i, ii) {
 }
 
 // ==========================================================================
+function check_diagonalesDerecha(id, i, ii, contador) {
+
+    for (let offset = 0; offset < 4; offset ++) {
+
+        if (ii + offset < settings.constantes.COLUMNAS && i + offset < settings.constantes.FILAS) {
+
+            if (settings.arrayTablero[i + offset][ii + offset] === id) contador ++;
+        }
+    }
+
+    if (contador === 4) return true;
+
+    return false;
+}
+
+// ==========================================================================
+function check_diagonalesIzquierda(id, i, ii, contador) {
+
+    for (let offset = 0; offset < 4; offset ++) {
+
+        if (ii - offset >= 0 && i + offset < settings.constantes.FILAS) {
+
+            if (settings.arrayTablero[i + offset][ii - offset] === id) contador ++;
+        }
+    }
+
+    if (contador === 4) return true;
+
+    return false;
+}
+
+// ==========================================================================
+function juega_CPU() {
+
+    if (settings.turno) return;
+
+    let columna;
+
+    columna = jugar_aleatorio_comoUltimoRecurso();
+    settings.turno = true;
+    poner_textos('Tu turno, haz click...', 'var(--blanco)');
+
+    // ----------------------------------------------------------------
+    const filaLibre = check_colision(columna);
+    settings.arrayTablero[filaLibre][columna] = 2; // *** 2 = ficha CPU ***
+
+    settings.resultado.ganaCPU = check_4raya(2);
+    console.log('ganaCPU:', settings.resultado.ganaCPU);
+
+    creaFicha_yAnimaLanzamiento('fichaCPU', filaLibre, columna);
+}
+
+// ==========================================================================
+function jugar_aleatorio_comoUltimoRecurso() {
+
+    let jugada_rnd;
+
+    do {
+        jugada_rnd = Math.floor(Math.random()* 7);
+        console.log(jugada_rnd);
+
+    } while (settings.arrayTablero[0][jugada_rnd] !== 0);
+
+    return jugada_rnd;
+}
+
+// ==========================================================================
 function comenzar_partida() {
     
     settings.estado.preJuego = false;
@@ -152,7 +226,7 @@ function comenzar_partida() {
     boton[0].style.visibility = 'hidden';
     
     poner_textos('Tu turno, haz click...', 'var(--blanco)');
-    settings.doms.textosP.style.animation = 'animaTxt 4s linear infinite';
+    settings.doms.textosP.style.animation = 'animaTxt 12s linear infinite';
     settings.doms.info.style.animation = 'gradientInfo 2s linear infinite';
 }
 

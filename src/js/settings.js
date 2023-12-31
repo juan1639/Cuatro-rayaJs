@@ -10,7 +10,7 @@ export class Settings {
             TILE_YY: 8,
             FILAS: 6,
             COLUMNAS: 7,
-            tiempoRespuestaCPU: 3000,
+            tiempoRespuestaCPU: 4500,
             FPS: 50
         };
 
