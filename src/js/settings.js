@@ -10,12 +10,28 @@ export class Settings {
             TILE_YY: 8,
             FILAS: 6,
             COLUMNAS: 7,
+            tiempoRespuestaCPU: 3000,
             FPS: 50
         };
 
         this.doms = {
+            main: document.getElementById('main'),
+            textos: document.getElementById('textos'),
+            textosP: document.getElementById('textosP'),
+            info: document.getElementById('info'),
             tablero: document.getElementById('tablero'),
             botonesInicio: document.getElementsByClassName('botones-inicio')
-        }
+        };
+
+        this.arrayTablero = [];
+
+        this.estado = {
+            preJuego: true,
+            enJuego: false,
+            gameOver: false,
+            reJugar: false
+        };
+
+        this.turno = true;
     }
 }

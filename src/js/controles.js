@@ -1,12 +1,17 @@
 import { settings } from "./main.js";
 
+import {
+    comenzar_partida,
+    inicia_tirarFicha
+} from './functions.js';
+
 // ----------------------------------------------------------------------
 //  EVENTOS touchstart
 // 
 // ----------------------------------------------------------------------
 const touchStart = document.addEventListener('touchstart', (event) => {
 
-    const keysTeclas = Object.keys(settings.tecla);
+    /* const keysTeclas = Object.keys(settings.tecla);
     const touch = event.target.id;
 
     if (settings.estado.reJugar) {
@@ -32,7 +37,7 @@ const touchStart = document.addEventListener('touchstart', (event) => {
                 settings.controles[idTecla] = true;
             }
         }
-    }
+    } */
 });
 
 // ----------------------------------------------------------------------
@@ -41,7 +46,7 @@ const touchStart = document.addEventListener('touchstart', (event) => {
 // ----------------------------------------------------------------------
 const touchEnd = document.addEventListener('touchend', (event) => {
 
-    //console.log(event.target.id, event.targetTouches);
+    /* console.log(event.target.id, event.targetTouches);
     const keysTeclas = Object.keys(settings.tecla);
     const touchEnd = event.target.id;
     
@@ -53,7 +58,7 @@ const touchEnd = document.addEventListener('touchend', (event) => {
                 settings.controles[idTecla] = false;
             }
         }
-    }
+    } */
 });
 
 // ----------------------------------------------------------------------
@@ -62,22 +67,33 @@ const touchEnd = document.addEventListener('touchend', (event) => {
 // ----------------------------------------------------------------------
 const click = document.addEventListener('click', (event) => {
 
-    //console.log(event.target.id, event.targetTouches, event);
+    console.log(event.target.id);
+    console.log(event);
     const clickar = event.target.id;
-
+    
     if (settings.estado.reJugar) {
 
-        if (clickar === settings.tecla.touch_canvas[0]) {
+        if (clickar === 'boton-rejugar') {
 
-            // location.reload();
-            comenzar_partida();
+            // comenzar_partida();
         }
         
     } else if (settings.estado.preJuego) {
 
-        if (clickar === settings.tecla.touch_canvas[0]) {
+        if (clickar === 'boton-comenzar') {
 
+            console.log('comenzar partida!');
             comenzar_partida();
+        }
+
+    } else if (settings.estado.enJuego) {
+
+        const id1 = clickar.slice(0, 4);
+        const id2 = clickar.slice(4, 5);
+        console.log(id1, id2);
+
+        if (id1 === 'col-') {
+            inicia_tirarFicha(id2);
         }
     }
 });
