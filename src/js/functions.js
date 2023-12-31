@@ -49,7 +49,7 @@ function inicia_tirarFicha(columna) {
     }
 
     // ----------------------------------------------------------------
-    settings.turno = false;
+    // settings.turno = false;
     console.log('CPU Pensando...');
 
     setTimeout(() => {
@@ -58,6 +58,9 @@ function inicia_tirarFicha(columna) {
 
     const filaLibre = check_colision(columna);
     settings.arrayTablero[filaLibre][columna] = 1; // 1 = ficha Jugador
+
+    settings.resultado.ganaJugador = check_4raya(1);
+    console.log('ganaJugador:', settings.resultado.ganaJugador);
 
     console.log('ficha tirada...');
     const coorX = columna * settings.constantes.TILE_XX;
@@ -86,6 +89,56 @@ function check_colision(columna) {
     }
 
     return 9; // No deberia ser posible (error)
+}
+
+// ==========================================================================
+function check_4raya(id) {
+
+    for (let i = 0; i < settings.constantes.FILAS; i ++) {
+        for (let ii = 0; ii < settings.constantes.COLUMNAS; ii ++) {
+
+            if (check_horizontales(id, i, ii)) return true;
+            if (check_verticales(id, i, ii)) return true;
+        }
+    }
+
+    return false;
+}
+
+// ==========================================================================
+function check_horizontales(id, i, ii) {
+
+    let contador = 0;
+
+    for (let offset = 0; offset < 4; offset ++) {
+
+        if (ii + offset < settings.constantes.COLUMNAS) {
+
+            if (settings.arrayTablero[i][ii + offset] === id) contador ++;
+        }
+    }
+
+    if (contador === 4) return true;
+
+    return false;
+}
+
+// ==========================================================================
+function check_verticales(id, i, ii) {
+
+    let contador = 0;
+
+    for (let offset = 0; offset < 4; offset ++) {
+
+        if (i + offset < settings.constantes.FILAS) {
+
+            if (settings.arrayTablero[i + offset][ii] === id) contador ++;
+        }
+    }
+
+    if (contador === 4) return true;
+
+    return false;
 }
 
 // ==========================================================================

@@ -33,5 +33,11 @@ export class Settings {
         };
 
         this.turno = true;
+
+        this.resultado = {
+            ganaJugador: false,
+            ganaCPU: false,
+            empate: false
+        }
     }
 }

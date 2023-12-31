@@ -5,6 +5,7 @@ import {
     touchEnd,
     click
 } from './controles.js';
+
 import {
     crea_tableroCSS,
     crea_arrayTablero
