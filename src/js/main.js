@@ -20,7 +20,6 @@ window.onload = () => {
 
     crea_arrayTablero();
     crea_tableroCSS();
-
 };
 
 export { settings };

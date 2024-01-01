@@ -51,7 +51,7 @@ function inicia_tirarFicha(columna) {
     // ----------------------------------------------------------------
     settings.turno = false;
     console.log('CPU Pensando...');
-    poner_textos('Turno CPU, pensando...', 'var(--gradi-verde2)');
+    poner_textos('Turno CPU, pensando...', 'var(--gradi-verde1)');
 
     setTimeout(() => {
         console.log('tirada CPU');
@@ -71,8 +71,17 @@ function inicia_tirarFicha(columna) {
         console.log('ganaJugador:', settings.resultado.ganaJugador);
 
         setTimeout(() => {
-            console.log('Ya Jugador...');
-        }, 2400);
+            crear_letras_winnerModal('GANASTE!');
+            settings.doms.winnerModal.style.visibility = 'visible';
+            poner_textos('Has ganado!', 'var(--blanco)');
+        }, 2100);
+
+        setTimeout(() => {
+            settings.estado.gameOver = false;
+            settings.estado.preJuego = true;
+            const boton = Array.from(settings.doms.botonesInicio);
+            boton[0].style.visibility = 'visible';
+        }, 3500);
     }
     
     creaFicha_yAnimaLanzamiento('ficha', filaLibre, columna);
@@ -96,6 +105,9 @@ function creaFicha_yAnimaLanzamiento(id, filaLibre, columna) {
     ficha.style.left = coorX.toString() + 'vw';
 
     settings.doms.tablero.appendChild(ficha);
+    settings.arrayFichasDom.push(ficha);
+    console.log(Array.from(settings.doms.tablero.childNodes));
+    console.log(settings.arrayFichasDom);
 }
 
 // ==========================================================================
@@ -226,8 +238,17 @@ function juega_CPU() {
         console.log('ganaCPU:', settings.resultado.ganaCPU);
 
         setTimeout(() => {
-            console.log('Ya...');
-        }, 2400);
+            crear_letras_winnerModal('PERDISTE');
+            settings.doms.winnerModal.style.visibility = 'visible';
+            poner_textos('Has perdido!', 'var(--gradi-verde1)');
+        }, 2100);
+
+        setTimeout(() => {
+            settings.estado.gameOver = false;
+            settings.estado.preJuego = true;
+            const boton = Array.from(settings.doms.botonesInicio);
+            boton[0].style.visibility = 'visible';
+        }, 4500);
     }
 
     creaFicha_yAnimaLanzamiento('fichaCPU', filaLibre, columna);
@@ -286,16 +307,48 @@ function defender() {
 }
 
 // ==========================================================================
+function crear_letras_winnerModal(txt) {
+
+    const letras = Array.from(settings.doms.winnerLetras);
+
+    letras.forEach((letra, index)=> {
+        letra.innerText = txt[index];
+    });
+}
+
+// ==========================================================================
 function comenzar_partida() {
-    
-    settings.estado.preJuego = false;
+
+    Object.keys(settings.estado).forEach(estado_bool => {
+        settings.estado[estado_bool] = false;
+    });
+
+    if (!settings.primera_partida) {
+
+        settings.doms.winnerModal.style.visibility = 'hidden';
+
+        settings.arrayTablero.forEach(fila => {
+            fila.fill(0);
+        });
+
+        settings.arrayFichasDom.forEach(ficha => {
+            settings.doms.tablero.removeChild(ficha);
+        });
+
+        settings.arrayFichasDom = [];
+    }
+
+    console.log(settings.arrayTablero);
+
     settings.estado.enJuego = true;
+    settings.turno = true;
     console.log(Object.values(settings.estado));
+    settings.primera_partida = false;
     
     const boton = Array.from(settings.doms.botonesInicio);
     boton[0].style.visibility = 'hidden';
     
-    poner_textos('Tu turno, haz click...', 'var(--blanco)');
+    poner_textos('Tu turno, haz click debajo...', 'var(--blanco)');
     settings.doms.textosP.style.animation = 'animaTxt 12s linear infinite';
     settings.doms.info.style.animation = 'gradientInfo 2s linear infinite';
 }

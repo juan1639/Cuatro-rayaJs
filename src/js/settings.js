@@ -20,19 +20,22 @@ export class Settings {
             textosP: document.getElementById('textosP'),
             info: document.getElementById('info'),
             tablero: document.getElementById('tablero'),
-            botonesInicio: document.getElementsByClassName('botones-inicio')
+            botonesInicio: document.getElementsByClassName('botones-inicio'),
+            winnerModal: document.getElementById('winner'),
+            winnerLetras: document.getElementsByClassName('letraWM')
         };
 
         this.arrayTablero = [];
+        this.arrayFichasDom = [];
 
         this.estado = {
             preJuego: true,
             enJuego: false,
-            gameOver: false,
-            reJugar: false
+            gameOver: false
         };
 
         this.turno = true;
+        this.primera_partida = true;
 
         this.resultado = {
             ganaJugador: false,
