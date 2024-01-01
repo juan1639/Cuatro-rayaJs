@@ -4,13 +4,14 @@ export class Settings {
     constructor() {
 
         this.constantes = {
-            TILE_X: '8vw',
-            TILE_Y: '8vw',
-            TILE_XX: 8,
-            TILE_YY: 8,
+            TILE_X: '9vw',
+            TILE_Y: '9vw',
+            TILE_XX: 9,
+            TILE_YY: 9,
             FILAS: 6,
             COLUMNAS: 7,
             tiempoRespuestaCPU: 4500,
+            tiempoApareceWinnerModal: 2100,
             FPS: 50
         };
 

@@ -1,9 +1,6 @@
 import { settings } from "./main.js";
-
-import {
-    comenzar_partida,
-    inicia_tirarFicha
-} from './functions.js';
+import { comenzar_partida } from './iniFunctions.js';
+import { inicia_tirarFicha } from "./jugadorFunctions.js";
 
 // ----------------------------------------------------------------------
 //  EVENTOS touchstart
@@ -11,42 +8,36 @@ import {
 // ----------------------------------------------------------------------
 const touchStart = document.addEventListener('touchstart', (event) => {
 
-    /* const keysTeclas = Object.keys(settings.tecla);
+    console.log(event.target.id, event.targetTouches);
     const touch = event.target.id;
+    
+    if (settings.estado.preJuego) {
 
-    if (settings.estado.reJugar) {
+        if (touch === 'boton-comenzar') {
 
-        if (touch === settings.tecla.touch_canvas[0]) {
-            // location.reload();
+            console.log('comenzar partida!');
             comenzar_partida();
         }
-    
-    } else if (settings.estado.preJuego) {
 
-        if (touch === settings.tecla.touch_canvas[0]) {
+    } else if (settings.estado.enJuego) {
 
-            comenzar_partida();
+        const id1 = touch.slice(0, 4);
+        const id2 = touch.slice(4, 5);
+        console.log(id1, id2);
+
+        if (id1 === 'col-') {
+            inicia_tirarFicha(id2);
         }
     }
-
-    if (settings.estado.enJuego) {
-
-        for (let idTecla of keysTeclas) {
-
-            if (touch === settings.tecla[idTecla][0] || touch === settings.tecla[idTecla][1]) {
-                settings.controles[idTecla] = true;
-            }
-        }
-    } */
 });
 
 // ----------------------------------------------------------------------
 //  EVENTOS touchend
 // 
 // ----------------------------------------------------------------------
-const touchEnd = document.addEventListener('touchend', (event) => {
+/* const touchEnd = document.addEventListener('touchend', (event) => {
 
-    /* console.log(event.target.id, event.targetTouches);
+    console.log(event.target.id, event.targetTouches);
     const keysTeclas = Object.keys(settings.tecla);
     const touchEnd = event.target.id;
     
@@ -58,8 +49,8 @@ const touchEnd = document.addEventListener('touchend', (event) => {
                 settings.controles[idTecla] = false;
             }
         }
-    } */
-});
+    }
+}); */
 
 // ----------------------------------------------------------------------
 //  EVENTOS Click
@@ -71,14 +62,7 @@ const click = document.addEventListener('click', (event) => {
     console.log(event);
     const clickar = event.target.id;
     
-    if (settings.estado.reJugar) {
-
-        if (clickar === 'boton-rejugar') {
-
-            // comenzar_partida();
-        }
-        
-    } else if (settings.estado.preJuego) {
+    if (settings.estado.preJuego) {
 
         if (clickar === 'boton-comenzar') {
 
@@ -101,6 +85,5 @@ const click = document.addEventListener('click', (event) => {
 // ----------------------------------------------------------------------------
 export {
     touchStart,
-    touchEnd,
     click
 };

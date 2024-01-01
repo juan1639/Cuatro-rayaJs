@@ -2,14 +2,13 @@ import { Settings } from './settings.js';
 
 import {
     touchStart,
-    touchEnd,
     click
 } from './controles.js';
 
 import {
     crea_tableroCSS,
     crea_arrayTablero
-} from './functions.js';
+} from './iniFunctions.js';
 
 let settings;
 
