@@ -41,7 +41,7 @@ function crea_tableroCSS() {
 // ==========================================================================
 function inicia_tirarFicha(columna) {
 
-    if (!settings.turno) return;
+    if (!settings.turno || !settings.estado.enJuego) return;
 
     if (settings.arrayTablero[0][columna] !== 0) {
         console.log('columna ocupada');
@@ -63,8 +63,18 @@ function inicia_tirarFicha(columna) {
     settings.arrayTablero[filaLibre][columna] = 1; // *** 1 = ficha Jugador ***
 
     settings.resultado.ganaJugador = check_4raya(1);
-    console.log('ganaJugador:', settings.resultado.ganaJugador);
 
+    if (settings.resultado.ganaJugador) {
+
+        settings.estado.enJuego = false;
+        settings.estado.gameOver = true;
+        console.log('ganaJugador:', settings.resultado.ganaJugador);
+
+        setTimeout(() => {
+            console.log('Ya Jugador...');
+        }, 2400);
+    }
+    
     creaFicha_yAnimaLanzamiento('ficha', filaLibre, columna);
 }
 
@@ -183,20 +193,42 @@ function check_diagonalesIzquierda(id, i, ii, contador) {
 // ==========================================================================
 function juega_CPU() {
 
-    if (settings.turno) return;
+    if (settings.turno || !settings.estado.enJuego) return;
 
     let columna;
 
-    columna = jugar_aleatorio_comoUltimoRecurso();
+    // ----------------------------------------------------------------
+    // 1ro CPU intenta 4raya... Si NO es posible...
+    // 2do CPU se defiende (de posible 4raya del jugador chekeando)...
+    // 3ro como ultimo recurso, juega Random
+    // ----------------------------------------------------------------
+    columna = hacer4raya_siEsPosible();
+
+    if (!settings.resultado.ganaCPU) {
+        columna = defender();
+
+        if (columna < 0 || columna > 6) columna = jugar_aleatorio_comoUltimoRecurso();
+    }
+
+    // ----------------------------------------------------------------
     settings.turno = true;
     poner_textos('Tu turno, haz click...', 'var(--blanco)');
 
-    // ----------------------------------------------------------------
     const filaLibre = check_colision(columna);
     settings.arrayTablero[filaLibre][columna] = 2; // *** 2 = ficha CPU ***
 
     settings.resultado.ganaCPU = check_4raya(2);
-    console.log('ganaCPU:', settings.resultado.ganaCPU);
+
+    if (settings.resultado.ganaCPU) {
+
+        settings.estado.enJuego = false;
+        settings.estado.gameOver = true;
+        console.log('ganaCPU:', settings.resultado.ganaCPU);
+
+        setTimeout(() => {
+            console.log('Ya...');
+        }, 2400);
+    }
 
     creaFicha_yAnimaLanzamiento('fichaCPU', filaLibre, columna);
 }
@@ -213,6 +245,44 @@ function jugar_aleatorio_comoUltimoRecurso() {
     } while (settings.arrayTablero[0][jugada_rnd] !== 0);
 
     return jugada_rnd;
+}
+
+// ==========================================================================
+function hacer4raya_siEsPosible() {
+
+    for (let i = 0; i < settings.constantes.COLUMNAS; i ++) {
+
+        if (settings.arrayTablero[0][i] === 0) {
+
+            let filaLibre = check_colision(i);
+            settings.arrayTablero[filaLibre][i] = 2; // Momentaneamente colocamos ficha (para checkear despues)
+            settings.resultado.ganaCPU = check_4raya(2);
+            settings.arrayTablero[filaLibre][i] = 0;
+
+            if (settings.resultado.ganaCPU) return i;
+        }
+    }
+
+    return -99; // No es posible 4Raya y devuleve columna -99
+}
+
+// ==========================================================================
+function defender() {
+
+    for (let i = 0; i < settings.constantes.COLUMNAS; i ++) {
+
+        if (settings.arrayTablero[0][i] === 0) {
+
+            let filaLibre = check_colision(i);
+            settings.arrayTablero[filaLibre][i] = 1; // Momentaneamente colocamos ficha '1' (para checkear despues)
+            let check_posibilidadJugador = check_4raya(1);
+            settings.arrayTablero[filaLibre][i] = 0;
+
+            if (check_posibilidadJugador) return i;
+        }
+    }
+
+    return -99; // No es posible 4Raya y devuleve columna -99
 }
 
 // ==========================================================================
