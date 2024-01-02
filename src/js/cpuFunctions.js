@@ -4,7 +4,8 @@ import { poner_textos, crear_letras_winnerModal } from './iniFunctions.js';
 import {
     check_colision,
     check_4raya,
-    creaFicha_yAnimaLanzamiento
+    creaFicha_yAnimaLanzamiento,
+    play_sonidos
 } from "./functions.js";
 
 // ==========================================================================
@@ -46,6 +47,8 @@ function juega_CPU() {
             crear_letras_winnerModal('PERDISTE');
             settings.doms.winnerModal.style.visibility = 'visible';
             poner_textos('Has perdido!', 'var(--gradi-verde1)');
+            play_sonidos('pacmandies', false);
+
         }, settings.constantes.tiempoApareceWinnerModal);
 
         setTimeout(() => {
@@ -53,6 +56,8 @@ function juega_CPU() {
             settings.estado.preJuego = true;
             const boton = Array.from(settings.doms.botonesInicio);
             boton[0].style.visibility = 'visible';
+            play_sonidos('gameover', false);
+
         }, settings.constantes.tiempoRespuestaCPU);
     }
 

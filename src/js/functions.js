@@ -17,6 +17,14 @@ function creaFicha_yAnimaLanzamiento(id, filaLibre, columna) {
     ficha.style.top = coorY.toString() + 'vw';
     ficha.style.left = coorX.toString() + 'vw';
 
+    const cuandoCae = velAnima[filaLibre] * 1000;
+    play_sonidos('ficha1', false);
+    play_sonidos('ficha2', false)
+
+    setTimeout(() => {
+        play_sonidos('ficha2', false);
+    }, cuandoCae);
+
     settings.doms.tablero.appendChild(ficha);
     settings.arrayFichasDom.push(ficha);
     console.log(Array.from(settings.doms.tablero.childNodes));
@@ -101,22 +109,31 @@ function check_diagonalesDerecha(id, i, ii, contador) {
 
 // ==========================================================================
 function check_diagonalesIzquierda(id, i, ii, contador) {
-
+    
     for (let offset = 0; offset < 4; offset ++) {
-
+        
         if (ii - offset >= 0 && i + offset < settings.constantes.FILAS) {
-
+            
             if (settings.arrayTablero[i + offset][ii - offset] === id) contador ++;
         }
     }
-
+    
     if (contador === 4) return true;
-
+    
     return false;
+}
+
+// ==========================================================================
+function play_sonidos(id, loop) {
+
+    settings.sonidos[id].play();
+    settings.sonidos[id].volume = settings.volumen[id];
+    settings.sonidos[id].loop = loop;
 }
 
 export {
     creaFicha_yAnimaLanzamiento,
     check_colision,
-    check_4raya
+    check_4raya,
+    play_sonidos
 };

@@ -3,7 +3,8 @@ import { settings } from "./main.js";
 import {
     creaFicha_yAnimaLanzamiento,
     check_colision,
-    check_4raya
+    check_4raya,
+    play_sonidos
 } from './functions.js';
 
 import { juega_CPU } from "./cpuFunctions.js";
@@ -56,6 +57,8 @@ function inicia_tirarFicha(columna) {
             settings.estado.preJuego = true;
             const boton = Array.from(settings.doms.botonesInicio);
             boton[0].style.visibility = 'visible';
+            play_sonidos('gameover', false);
+            
         }, settings.constantes.tiempoRespuestaCPU);
     }
     

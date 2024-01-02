@@ -1,4 +1,6 @@
 import { settings } from "./main.js";
+import { juega_CPU } from "./cpuFunctions.js";
+import { play_sonidos } from "./functions.js";
 
 // ==========================================================================
 function crea_arrayTablero() {
@@ -73,16 +75,34 @@ function comenzar_partida() {
     console.log(settings.arrayTablero);
 
     settings.estado.enJuego = true;
-    settings.turno = true;
     console.log(Object.values(settings.estado));
     settings.primera_partida = false;
     
     const boton = Array.from(settings.doms.botonesInicio);
     boton[0].style.visibility = 'hidden';
-    
-    poner_textos('Tu turno, haz click debajo...', 'var(--blanco)');
+
+    sorteo_quienComienza(99);
+
     settings.doms.textosP.style.animation = 'animaTxt 12s linear infinite';
     settings.doms.info.style.animation = 'gradientInfo 2s linear infinite';
+
+    play_sonidos('musicafondo', true);
+}
+
+// ==========================================================================
+function sorteo_quienComienza(rango) {
+
+    const sorteo = Math.floor(Math.random() * rango);
+    if (sorteo < rango / 2) {
+
+        settings.turno = true;
+        poner_textos('Tu turno, haz click debajo...', 'var(--blanco)');
+        
+    } else {
+        settings.turno = false;
+        poner_textos('Turno CPU, pensando...', 'var(--gradi-verde1)');
+        juega_CPU();
+    }
 }
 
 // --------------------------------------------------------------------------

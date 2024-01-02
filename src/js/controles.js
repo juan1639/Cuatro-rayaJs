@@ -61,6 +61,15 @@ const click = document.addEventListener('click', (event) => {
     console.log(event.target.id);
     console.log(event);
     const clickar = event.target.id;
+
+    if (clickar === 'main') {
+        
+        if (settings.sonidos.musicafondo.paused) {
+            settings.sonidos.musicafondo.play();
+        } else {
+            settings.sonidos.musicafondo.pause();
+        }
+    }
     
     if (settings.estado.preJuego) {
 

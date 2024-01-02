@@ -42,6 +42,22 @@ export class Settings {
             ganaJugador: false,
             ganaCPU: false,
             empate: false
-        }
+        };
+
+        this.sonidos = {
+            ficha1: new Audio('../src/audio/chipsCollide1.ogg'),
+            ficha2: new Audio('../src/audio/chipsCollide2.ogg'),
+            gameover: new Audio('../src/audio/gameover.mp3'),
+            pacmandies: new Audio('../src/audio/pacmandies.ogg'),
+            musicafondo: new Audio('../src/audio/music-puzzle-game1.mp3')
+        };
+
+        this.volumen = {
+            ficha1: 0.9,
+            ficha2: 0.9,
+            gameover: 0.9,
+            pacmandies: 0.5,
+            musicafondo: 0.2
+        };
     }
 }
