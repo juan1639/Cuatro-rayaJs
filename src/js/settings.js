@@ -45,11 +45,11 @@ export class Settings {
         };
 
         this.sonidos = {
-            ficha1: new Audio('../src/audio/chipsCollide1.ogg'),
-            ficha2: new Audio('../src/audio/chipsCollide2.ogg'),
-            gameover: new Audio('../src/audio/gameover.mp3'),
-            pacmandies: new Audio('../src/audio/pacmandies.ogg'),
-            musicafondo: new Audio('../src/audio/music-puzzle-game1.mp3')
+            ficha1: new Audio('./src/audio/chipsCollide1.ogg'),
+            ficha2: new Audio('./src/audio/chipsCollide2.ogg'),
+            gameover: new Audio('./src/audio/gameover.mp3'),
+            pacmandies: new Audio('./src/audio/pacmandies.ogg'),
+            musicafondo: new Audio('./src/audio/music-puzzle-game1.mp3')
         };
 
         this.volumen = {
