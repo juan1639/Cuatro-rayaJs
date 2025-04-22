@@ -1,7 +1,7 @@
 
 :root {
-    --tableroSizeX: 63vw;
-    --tableroSizeY: 54vw;
+    --tableroSizeX: 840px;
+    --tableroSizeY: 660px;
     --blanco: rgb(240, 240, 240);
     --blanco-azulado:rgb(200, 245, 255);
     --grisVacio: rgb(89, 89, 89);

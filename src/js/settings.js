@@ -1,21 +1,24 @@
-// ==========================================================================
-export class Settings {
 
-    constructor() {
-
-        this.constantes = {
-            TILE_X: '9vw',
-            TILE_Y: '9vw',
-            TILE_XX: 9,
-            TILE_YY: 9,
+export class Settings
+{
+    constructor()
+    {
+        this.constantes =
+        {
+            TILE_X: '120px',
+            TILE_Y: '110px',
+            TILE_XX: 120,
+            TILE_YY: 110,
             FILAS: 6,
             COLUMNAS: 7,
-            tiempoRespuestaCPU: 4500,
+            PX: 'px',
+            tiempoRespuestaCPU: 3200,
             tiempoApareceWinnerModal: 2100,
             FPS: 50
         };
 
-        this.doms = {
+        this.doms =
+        {
             main: document.getElementById('main'),
             textos: document.getElementById('textos'),
             textosP: document.getElementById('textosP'),
@@ -29,7 +32,8 @@ export class Settings {
         this.arrayTablero = [];
         this.arrayFichasDom = [];
 
-        this.estado = {
+        this.estado =
+        {
             preJuego: true,
             enJuego: false,
             gameOver: false
@@ -37,14 +41,17 @@ export class Settings {
 
         this.turno = true;
         this.primera_partida = true;
+        this.contadorJugadas = 0;
 
-        this.resultado = {
+        this.resultado =
+        {
             ganaJugador: false,
             ganaCPU: false,
             empate: false
         };
 
-        this.sonidos = {
+        this.sonidos =
+        {
             ficha1: new Audio('./src/audio/chipsCollide1.ogg'),
             ficha2: new Audio('./src/audio/chipsCollide2.ogg'),
             gameover: new Audio('./src/audio/gameover.mp3'),
@@ -52,7 +59,8 @@ export class Settings {
             musicafondo: new Audio('./src/audio/music-puzzle-game1.mp3')
         };
 
-        this.volumen = {
+        this.volumen =
+        {
             ficha1: 0.9,
             ficha2: 0.9,
             gameover: 0.9,

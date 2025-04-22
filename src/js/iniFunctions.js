@@ -2,12 +2,13 @@ import { settings } from "./main.js";
 import { juega_CPU } from "./cpuFunctions.js";
 import { play_sonidos } from "./functions.js";
 
-// ==========================================================================
+// FUNCIONES ==============================================================
 function crea_arrayTablero() {
 
     settings.arrayTablero = new Array(settings.constantes.FILAS);
 
-    for (let i = 0; i < settings.arrayTablero.length; i ++) {
+    for (let i = 0; i < settings.arrayTablero.length; i ++)
+    {
         // fill(0) = casilla vacia --> 1 = Jugador --> CPU
         settings.arrayTablero[i] = new Array(settings.constantes.COLUMNAS).fill(0);
     }
@@ -15,12 +16,12 @@ function crea_arrayTablero() {
     console.log(settings.arrayTablero);
 }
 
-// ==========================================================================
-function crea_tableroCSS() {
-
-    for (let i = 0; i < settings.constantes.FILAS; i ++) {
-        for (let ii = 0; ii < settings.constantes.COLUMNAS; ii ++) {
-
+function crea_tableroCSS()
+{
+    for (let i = 0; i < settings.constantes.FILAS; i ++)
+    {
+        for (let ii = 0; ii < settings.constantes.COLUMNAS; ii ++)
+        {
             const id = i.toString() + ii.toString();
             console.log(id);
 
@@ -32,40 +33,42 @@ function crea_tableroCSS() {
             casilla.setAttribute('id', id);
             casilla.style.width = settings.constantes.TILE_X;
             casilla.style.height = settings.constantes.TILE_Y;
-            casilla.style.top = y.toString() + 'vw';
-            casilla.style.left = x.toString() + 'vw';
+            casilla.style.top = y.toString() + 'px';
+            casilla.style.left = x.toString() + 'px';
 
             settings.doms.tablero.appendChild(casilla);
         }
     }
 }
 
-// ==========================================================================
-function crear_letras_winnerModal(txt) {
-
+function crear_letras_winnerModal(txt)
+{
     const letras = Array.from(settings.doms.winnerLetras);
 
-    letras.forEach((letra, index)=> {
+    letras.forEach((letra, index)=>
+    {
         letra.innerText = txt[index];
     });
 }
 
-// ==========================================================================
-function comenzar_partida() {
-
-    Object.keys(settings.estado).forEach(estado_bool => {
+function comenzar_partida()
+{
+    Object.keys(settings.estado).forEach(estado_bool =>
+    {
         settings.estado[estado_bool] = false;
     });
 
-    if (!settings.primera_partida) {
-
+    if (!settings.primera_partida)
+    {
         settings.doms.winnerModal.style.visibility = 'hidden';
 
-        settings.arrayTablero.forEach(fila => {
+        settings.arrayTablero.forEach(fila =>
+        {
             fila.fill(0);
         });
 
-        settings.arrayFichasDom.forEach(ficha => {
+        settings.arrayFichasDom.forEach(ficha =>
+        {
             settings.doms.tablero.removeChild(ficha);
         });
 
@@ -74,6 +77,7 @@ function comenzar_partida() {
 
     console.log(settings.arrayTablero);
 
+    settings.contadorJugadas = 0;
     settings.estado.enJuego = true;
     console.log(Object.values(settings.estado));
     settings.primera_partida = false;
@@ -89,25 +93,26 @@ function comenzar_partida() {
     play_sonidos('musicafondo', true);
 }
 
-// ==========================================================================
-function sorteo_quienComienza(rango) {
-
+function sorteo_quienComienza(rango)
+{
     const sorteo = Math.floor(Math.random() * rango);
-    if (sorteo < rango / 2) {
 
+    if (sorteo < rango / 2)
+    {
         settings.turno = true;
         poner_textos('Tu turno, haz click debajo...', 'var(--blanco)');
         
-    } else {
+    }
+    else
+    {
         settings.turno = false;
         poner_textos('Turno CPU, pensando...', 'var(--gradi-verde1)');
         juega_CPU();
     }
 }
 
-// --------------------------------------------------------------------------
-function poner_textos(txt, color) {
-    
+function poner_textos(txt, color)
+{
     settings.doms.textosP.style.color = color;
     settings.doms.textosP.innerText = txt;
 }

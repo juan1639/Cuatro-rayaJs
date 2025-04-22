@@ -1,20 +1,25 @@
+// ================================================================
+//              CONECTA-4  |  By Juan Eguia, 2024
+// 
+// ----------------------------------------------------------------
 import { Settings } from './settings.js';
 
-import {
+import
+{
     touchStart,
     click
 } from './controles.js';
 
-import {
+import
+{
     crea_tableroCSS,
     crea_arrayTablero
 } from './iniFunctions.js';
 
 let settings;
 
-// ==========================================================================
-window.onload = () => {
-
+window.onload = () =>
+{
     settings = new Settings();
 
     crea_arrayTablero();

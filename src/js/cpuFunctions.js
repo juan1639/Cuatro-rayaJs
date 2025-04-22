@@ -1,16 +1,17 @@
 import { settings } from "./main.js";
 import { poner_textos, crear_letras_winnerModal } from './iniFunctions.js';
 
-import {
+import
+{
     check_colision,
     check_4raya,
     creaFicha_yAnimaLanzamiento,
     play_sonidos
 } from "./functions.js";
 
-// ==========================================================================
-function juega_CPU() {
-
+// FUNCIONES ===============================================================
+function juega_CPU()
+{
     if (settings.turno || !settings.estado.enJuego) return;
 
     let columna;
@@ -22,11 +23,21 @@ function juega_CPU() {
     // ----------------------------------------------------------------
     columna = hacer4raya_siEsPosible();
 
-    if (!settings.resultado.ganaCPU) {
+    if (!settings.resultado.ganaCPU)
+    {
         columna = defender();
 
         if (columna < 0 || columna > 6) columna = jugar_aleatorio_comoUltimoRecurso();
     }
+
+    // Centrar Tirada en la 1ra jugada IA
+    if (settings.contadorJugadas === 0)
+    {
+        columna = 3;
+    }
+
+    settings.contadorJugadas ++;
+    console.log("contador:" + settings.contadorJugadas);
 
     // ----------------------------------------------------------------
     settings.turno = true;
@@ -37,13 +48,14 @@ function juega_CPU() {
 
     settings.resultado.ganaCPU = check_4raya(2);
 
-    if (settings.resultado.ganaCPU) {
-
+    if (settings.resultado.ganaCPU)
+    {
         settings.estado.enJuego = false;
         settings.estado.gameOver = true;
         console.log('ganaCPU:', settings.resultado.ganaCPU);
 
-        setTimeout(() => {
+        setTimeout(() =>
+        {
             crear_letras_winnerModal('PERDISTE');
             settings.doms.winnerModal.style.visibility = 'visible';
             poner_textos('Has perdido!', 'var(--gradi-verde1)');
@@ -51,7 +63,8 @@ function juega_CPU() {
 
         }, settings.constantes.tiempoApareceWinnerModal);
 
-        setTimeout(() => {
+        setTimeout(() =>
+        {
             settings.estado.gameOver = false;
             settings.estado.preJuego = true;
             const boton = Array.from(settings.doms.botonesInicio);
@@ -64,27 +77,12 @@ function juega_CPU() {
     creaFicha_yAnimaLanzamiento('fichaCPU', filaLibre, columna);
 }
 
-// ==========================================================================
-function jugar_aleatorio_comoUltimoRecurso() {
-
-    let jugada_rnd;
-
-    do {
-        jugada_rnd = Math.floor(Math.random()* 7);
-        console.log(jugada_rnd);
-
-    } while (settings.arrayTablero[0][jugada_rnd] !== 0);
-
-    return jugada_rnd;
-}
-
-// ==========================================================================
-function hacer4raya_siEsPosible() {
-
-    for (let i = 0; i < settings.constantes.COLUMNAS; i ++) {
-
-        if (settings.arrayTablero[0][i] === 0) {
-
+function hacer4raya_siEsPosible()
+{
+    for (let i = 0; i < settings.constantes.COLUMNAS; i ++)
+    {
+        if (settings.arrayTablero[0][i] === 0)
+        {
             let filaLibre = check_colision(i);
             settings.arrayTablero[filaLibre][i] = 2; // Momentaneamente colocamos ficha (para checkear despues)
             settings.resultado.ganaCPU = check_4raya(2);
@@ -97,13 +95,12 @@ function hacer4raya_siEsPosible() {
     return -99; // No es posible 4Raya y devuleve columna -99
 }
 
-// ==========================================================================
-function defender() {
-
-    for (let i = 0; i < settings.constantes.COLUMNAS; i ++) {
-
-        if (settings.arrayTablero[0][i] === 0) {
-
+function defender()
+{
+    for (let i = 0; i < settings.constantes.COLUMNAS; i ++)
+    {
+        if (settings.arrayTablero[0][i] === 0)
+        {
             let filaLibre = check_colision(i);
             settings.arrayTablero[filaLibre][i] = 1; // Momentaneamente colocamos ficha '1' (para checkear despues)
             let check_posibilidadJugador = check_4raya(1);
@@ -114,6 +111,19 @@ function defender() {
     }
 
     return -99; // No es posible 4Raya y devuleve columna -99
+}
+
+function jugar_aleatorio_comoUltimoRecurso()
+{
+    let jugada_rnd;
+
+    do {
+        jugada_rnd = Math.floor(Math.random()* 7);
+        console.log(jugada_rnd);
+
+    } while (settings.arrayTablero[0][jugada_rnd] !== 0);
+
+    return jugada_rnd;
 }
 
 export { juega_CPU };
