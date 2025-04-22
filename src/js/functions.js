@@ -4,8 +4,10 @@ import { settings } from "./main.js";
 function creaFicha_yAnimaLanzamiento(id, filaLibre, columna)
 {
     console.log(id + 'tirada...');
-    const coorX = columna * settings.constantes.TILE_XX;
-    const coorY = filaLibre * settings.constantes.TILE_YY;
+    //const esResponsive = window.innerWidth < 768;
+
+    let coorX = columna * settings.constantes.TILE_XX;
+    let coorY = filaLibre * settings.constantes.TILE_YY;
 
     const ficha = document.createElement('div');
     ficha.setAttribute('class', id);

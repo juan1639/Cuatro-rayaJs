@@ -65,7 +65,8 @@ export class Settings
             ficha1: 0.9,
             ficha2: 0.9,
             gameover: 0.9,
-            pacmandies: 0.5,
+            boooh: 0.5,
+            winner: 0.7,
             musicafondo: 0.2
         };
     }

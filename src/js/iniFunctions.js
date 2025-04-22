@@ -18,6 +18,14 @@ function crea_arrayTablero() {
 
 function crea_tableroCSS()
 {
+    const esResponsive = window.innerWidth < 768;
+
+    if (esResponsive)
+    {
+        crea_tableroCSS_Responsive();
+        return;
+    }
+
     for (let i = 0; i < settings.constantes.FILAS; i ++)
     {
         for (let ii = 0; ii < settings.constantes.COLUMNAS; ii ++)
@@ -39,6 +47,12 @@ function crea_tableroCSS()
             settings.doms.tablero.appendChild(casilla);
         }
     }
+}
+
+function crea_tableroCSS_Responsive()
+{
+    // To do...
+    return;
 }
 
 function crear_letras_winnerModal(txt)
