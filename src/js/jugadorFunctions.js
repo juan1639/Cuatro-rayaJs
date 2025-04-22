@@ -55,6 +55,8 @@ function inicia_tirarFicha(columna)
             crear_letras_winnerModal('GANASTE!');
             settings.doms.winnerModal.style.visibility = 'visible';
             poner_textos('Has ganado!', 'var(--blanco)');
+            settings.sonidos.musicafondo.pause();
+            play_sonidos('winner', false);
         }, settings.constantes.tiempoApareceWinnerModal);
 
         setTimeout(() =>
@@ -65,7 +67,7 @@ function inicia_tirarFicha(columna)
             boton[0].style.visibility = 'visible';
             play_sonidos('gameover', false);
             
-        }, settings.constantes.tiempoRespuestaCPU);
+        }, 5900);// ...5,9s suena 'gameover'
     }
     
     creaFicha_yAnimaLanzamiento('ficha', filaLibre, columna);

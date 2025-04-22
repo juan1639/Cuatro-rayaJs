@@ -95,7 +95,6 @@ function realizarJugada(evTargetId)
     inicia_tirarFicha(columna);
 }
 
-// ------------------------------------------
 export {
     touchStart,
     click

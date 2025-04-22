@@ -33,15 +33,18 @@ function juega_CPU()
     // Centrar Tirada en la 1ra jugada IA
     if (settings.contadorJugadas === 0)
     {
-        columna = 3;
+        columna = centrar_primeraJugadaCPU();
     }
 
     settings.contadorJugadas ++;
     console.log("contador:" + settings.contadorJugadas);
 
     // ----------------------------------------------------------------
-    settings.turno = true;
-    poner_textos('Tu turno, haz click debajo...', 'var(--blanco)');
+    setTimeout(() =>
+    {
+        settings.turno = true;
+        poner_textos('Tu turno, haz click debajo...', 'var(--blanco)');
+    }, 1900);// 1,9s tiempo estimado que tarda en caer la fichaCPU
 
     const filaLibre = check_colision(columna);
     settings.arrayTablero[filaLibre][columna] = 2; // *** 2 = ficha CPU ***
@@ -59,7 +62,8 @@ function juega_CPU()
             crear_letras_winnerModal('PERDISTE');
             settings.doms.winnerModal.style.visibility = 'visible';
             poner_textos('Has perdido!', 'var(--gradi-verde1)');
-            play_sonidos('pacmandies', false);
+            settings.sonidos.musicafondo.pause();
+            play_sonidos('boooh', false);
 
         }, settings.constantes.tiempoApareceWinnerModal);
 
@@ -71,7 +75,7 @@ function juega_CPU()
             boton[0].style.visibility = 'visible';
             play_sonidos('gameover', false);
 
-        }, settings.constantes.tiempoRespuestaCPU);
+        }, 4900);// ...5,9s suena 'gameover'
     }
 
     creaFicha_yAnimaLanzamiento('fichaCPU', filaLibre, columna);
@@ -124,6 +128,24 @@ function jugar_aleatorio_comoUltimoRecurso()
     } while (settings.arrayTablero[0][jugada_rnd] !== 0);
 
     return jugada_rnd;
+}
+
+function centrar_primeraJugadaCPU()
+{
+    if (settings.arrayTablero[5][3] === 0)
+    {
+        return 3;
+    }
+    else if (settings.arrayTablero[5][4] === 0)
+    {
+        return 4;
+    }
+    else if (settings.arrayTablero[5][2] === 0)
+    {
+        return 2;
+    }
+
+    return jugar_aleatorio_comoUltimoRecurso();
 }
 
 export { juega_CPU };

@@ -49,7 +49,6 @@ function check_4raya(id)
     {
         for (let ii = 0; ii < settings.constantes.COLUMNAS; ii ++)
         {
-
             if (check_horizontales(id, i, ii, 0)) return true;
             if (check_verticales(id, i, ii, 0)) return true;
             if (check_diagonalesDerecha(id, i, ii, 0)) return true;

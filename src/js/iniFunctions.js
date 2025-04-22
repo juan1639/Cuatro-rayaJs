@@ -9,7 +9,7 @@ function crea_arrayTablero() {
 
     for (let i = 0; i < settings.arrayTablero.length; i ++)
     {
-        // fill(0) = casilla vacia --> 1 = Jugador --> CPU
+        // fill(0) = casilla vacia | 1 = Jugador | 2 = CPU
         settings.arrayTablero[i] = new Array(settings.constantes.COLUMNAS).fill(0);
     }
 
@@ -88,7 +88,7 @@ function comenzar_partida()
     sorteo_quienComienza(99);
 
     settings.doms.textosP.style.animation = 'animaTxt 12s linear infinite';
-    settings.doms.info.style.animation = 'gradientInfo 2s linear infinite';
+    //settings.doms.info.style.animation = 'gradientInfo 2s linear infinite';
 
     play_sonidos('musicafondo', true);
 }
@@ -101,7 +101,6 @@ function sorteo_quienComienza(rango)
     {
         settings.turno = true;
         poner_textos('Tu turno, haz click debajo...', 'var(--blanco)');
-        
     }
     else
     {

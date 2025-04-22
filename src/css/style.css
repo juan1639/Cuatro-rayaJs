@@ -80,30 +80,11 @@ body {
     /* animation: none; */
 }
 
-#info {
-    width: var(--tableroSizeX);
-    height: calc(var(--tableroSizeY) / 6);
-    border: 1px solid black;
-    border-radius: 8px 8px 0 0;
-    background: linear-gradient(90deg, var(--gradi-azul2), var(--gradi-azul1));
-    display: flex;
-    margin-top: 0.5em;
-    animation: none;
-}
-
-#info span {
-    width: calc(var(--tableroSizeX) / 7);
-    height: calc(var(--tableroSizeY) / 6);
-    /* background: linear-gradient(90deg, var(--gradi-rojo2), var(--gradi-rojo1)); */
-    background-color: transparent;
-    border-radius: 50%;
-}
-
 #tablero {
     width: var(--tableroSizeX);
     height: var(--tableroSizeY);
     border: 1px solid black;
-    border-radius: 0 0 8px 8px;
+    border-radius: 8px;
     background: linear-gradient(90deg, var(--gradi-gris1), var(--gradi-gris2));
     position: relative;
     overflow: hidden;
@@ -151,8 +132,8 @@ body {
 .botones-inicio {
     border: none;
     border-radius: 8px;
-    width: 50%;
-    height: 24%;
+    width: 45%;
+    height: 20%;
     top: 50%;
     left: 50%;
     font-size: var(--letra-grande);
@@ -164,6 +145,7 @@ body {
     position: absolute;
     z-index: 50;
     visibility: visible;
+    opacity: 0.8;
     /* transition: all 1s; */
     animation: none;
 }

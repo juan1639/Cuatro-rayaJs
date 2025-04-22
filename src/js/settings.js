@@ -22,7 +22,7 @@ export class Settings
             main: document.getElementById('main'),
             textos: document.getElementById('textos'),
             textosP: document.getElementById('textosP'),
-            info: document.getElementById('info'),
+            //info: document.getElementById('info'),
             tablero: document.getElementById('tablero'),
             botonesInicio: document.getElementsByClassName('botones-inicio'),
             winnerModal: document.getElementById('winner'),
@@ -55,7 +55,8 @@ export class Settings
             ficha1: new Audio('./src/audio/chipsCollide1.ogg'),
             ficha2: new Audio('./src/audio/chipsCollide2.ogg'),
             gameover: new Audio('./src/audio/gameover.mp3'),
-            pacmandies: new Audio('./src/audio/pacmandies.ogg'),
+            boooh: new Audio('./src/audio/boooh.mp3'),
+            winner: new Audio('./src/audio/aplausoseagle.mp3'),
             musicafondo: new Audio('./src/audio/music-puzzle-game1.mp3')
         };
 
